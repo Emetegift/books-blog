@@ -1,29 +1,43 @@
 <!DOCTYPE html>
+{% extends 'books/base.html' %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Books blog</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        .book-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Adjust the number of columns as needed */
-            gap: 10px; /* Adjust the gap between books as needed */
-        }
-        .book-item {
+        /* .book-item {
             text-align: center;
+            text-align: center;
+            display: flex;
         }
-    </style>
+        .book-item h2 {
+            font-size: 1.4rem;
+            
+        }
+        .book-item h3 {
+            font-size: 1.2rem;
+        }
+        
+    </style> */
 </head>
+
 <body>
-    <div class="book-grid">
-        {% for booksobj in object_list %}
-            <div class="book-item">
-                <img src="{{booksobj.coll_cover}}" height="200px" width="200px">
-                <h2><a href="/books/{{booksobj.id}}/">{{booksobj.collection_name}}</a></h2>
-                <h3>{{booksobj.description}}</h3>
+    {% block content %}
+        <div class="container">
+            <div class="row">
+                {% for booksobj in object_list %}
+                <div class="col-md-3 mb-3">
+                    <div class="book-item">
+                        <img src="{{booksobj.coll_cover}}" class="img-fluid" alt="Book Cover" style="height: 200px; width:200px; ">
+                        <h5><a href="/books/{{booksobj.id}}/">{{booksobj.collection_name}}</a></h5>
+                        <h5 >{{booksobj.description}}</h5>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-    </div>
+        </div>
+    {% endblock %}
 </body>
 </html>

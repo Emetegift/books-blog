@@ -2,13 +2,9 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Collection, Piece
 from django.views import generic
-from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
-from django.urls import reverse_lazy
-
-from django.contrib.auth.views import LoginView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
+from .forms import UserForm
+from django.contrib.auth import authenticate, login
+from django.views.generic import View # This will work for the View in the form class 
 # from .models import Task 
 # Create your views here.
 # def index(request):
@@ -43,23 +39,33 @@ class detail (generic.DetailView): # DetailView always accept one parameter
     model = Collection
     template_name='books/detailstemplate.html'
 
-class RegisterPage(FormView):
+class userFormView(View):
+    form_class=UserForm
     template_name = 'books/register.html'
-    form_class = UserCreationForm
-    success_url = reverse_lazy('index')  
+
+    def get(self,request):
+        form = self.form_class(None)
+        return render (request, self.template_name,{'form':form})
     
-    # To redirect the user once the registration form is submitted
-    def  form_valid(self, form):
-        user = form.save()
-        if user is not None: # This means if the user was successfully created
-            login(self.request, user)
-        return super(RegisterPage, self).form_valid(form)  
+    
+    
+    def post(self,request):
+        form = self.form_class(request.POST)
 
-    def get(self,*args,**kwargs): # keyword arguments
-        if self.request.user.is_authenticated:
-            return redirect('index')
-        return super(RegisterPage, self).get(*args, **kwargs)
+        ## To register and authenticate a user
+        if form.is_valid():
+            user=form.save()
+            username=form.cleaned_data['username']
+            password=form.cleaned_data['password']
+            user.set_password(password)
+            user.save()
 
-class details(generic.DetailView):
-    model = Collection
-    template_name = 'books/detailstemplate.html'
+            newuser=authenticate(username=username, password=password)
+
+            if newuser is not None:
+                if newuser.is_active:
+                    login(request,newuser)
+                    return redirect("/books")
+                
+        ## If the user is not authenticated, that is he does not exist, or fill in wrong details, give them another form to fill
+        return render (request, self.template_name,{'form':form})

@@ -1,32 +1,45 @@
 <!DOCTYPE html>
+{% extends 'books/base.html' %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        .book-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-            justify-items: center;
-        }
         .book-item {
             text-align: center;
+            text-align: center;
         }
+        /* .book-item text-muted {
+            font-size: 1rem;
+        }
+        .book-item h3 {
+            font-size: 1rem;
+        }*/
+        /* .h4 {
+            font-size: 0.3rem;
+        } */
+         
     </style>
 </head>
 <body>
-    <div class="book-grid">
-        {% for pieceobj in collection.piece_set.all %}
-            <div class="book-item">
-                <img src="{{pieceobj.piececover}}" height="200px" width="200px">
-                <h4>{{pieceobj.title}}</h4>
-                <h3>{{pieceobj.author}}</h3>
-                <h5>{{pieceobj.year}}</h5>
-                <h2><a href="{{ pieceobj.coll_buy }}">Add to cart</a></h2>
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% for pieceobj in collection.piece_set.all %}
+            <div class="col-md-3 mb-4">
+                <div class="book-item">
+                    <img src="{{pieceobj.piececover}}" class="img-fluid" alt="Book Cover" style="max-height: 200px;">
+                    <h4 class="h4">{{pieceobj.title}}</h4>
+                    <h3 class="h6">{{pieceobj.author}} </h3>
+                    <h6 class="text-muted">{{pieceobj.year}}</h6>
+                    <h2><a href="{{ pieceobj.coll_buy }}" style="font-size: 1.0rem;">Add to cart</a></h2>
+                </div>
             </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
+{% endblock %}
 </body>
 </html>

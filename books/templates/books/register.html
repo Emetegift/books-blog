@@ -1,25 +1,31 @@
+<!DOCTYPE html>
 {% extends 'books/base.html'%}
-{% block content %}
-
-<div class="header-bar">
-    <h1>Register</h1>
-</div>
-
-<div class="card_body">
-    <form method="POST">
-        {% csrf_token %}
-        <label>{{form.username.label}}</label>
-        {{form.username}}
-       
-        <label>{{form.password1.label}}</label>
-        {{form.password1}}
-
-        <label>{{form.password2.label}}</label>
-        {{form.password2}}
-        <input style="margin-top: 10px;" class="button" type="submit" value="Register">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+</head>
+<body>
+    {% block content %}
+        <form action="" method="post">
+            <!-- always include in cross site requset forgery(csrf) token whenever youre using a post method and not using external url-->
+            {%csrf_token%}
+            <div>
+                username:
+                <input type="text" name="username">
+                <br />
+                email:
+                <input type="email" name="email">
+                <br />
+                password:
+                <input type="password" name="password">
+                <br />
+                <input type="submit" value="submit">
     
-    </form>
-    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
-</div>
-
-{% endblock content %}
+            </div>
+           
+        </form>
+    {% endblock %}
+</body>
+</html>
