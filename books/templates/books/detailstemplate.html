@@ -4,28 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Details</title>
+    <style>
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            justify-items: center;
+        }
+        .book-item {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <!-- {% for pieceobj in collection.piece_set.all %}
-    <div align="center">
-        <img src="{{pieceobj.piececover}}" height="200px" width="200px">
-        <h2>{{pieceobj.title}}</h2>
-        <h2>{{pieceobj.author}}</h2>
-        <h3>{{pieceobj.year}}</h3>
-        <br />
+    <div class="book-grid">
+        {% for pieceobj in collection.piece_set.all %}
+            <div class="book-item">
+                <img src="{{pieceobj.piececover}}" height="200px" width="200px">
+                <h4>{{pieceobj.title}}</h4>
+                <h3>{{pieceobj.author}}</h3>
+                <h5>{{pieceobj.year}}</h5>
+                <h2><a href="{{ pieceobj.coll_buy }}">Add to cart</a></h2>
+            </div>
+        {% endfor %}
     </div>
-    {% endfor %} -->
-
-    
-    {% for pieceobj in collection.piece_set.all %}
-        <div align="center">
-            <img src="{{pieceobj.piececover}}", height="200px" width="200px">
-            <h2><a href="/books/{{pieceobj.id}}/">{{pieceobj.title}}</a></h2>
-            <h2>{{pieceobj.author}}</h2>
-            <h3>{{pieceobj.year}}</h3>
-            <br />
-        </div>
-    {% endfor %}
-
 </body>
 </html>

@@ -6,7 +6,7 @@ class Collection(models.Model):
     collection_name = models.CharField(max_length=100)
     # description = models.CharField(max_length=200)
     coll_cover = models.CharField(max_length=1000)
-    coll_buy = models.CharField(max_length=5000)
+    # coll_buy = models.CharField(max_length=5000)
 
     def __str__(self):
         return self.collection_name ## This will help return the actual name as wanted
@@ -19,7 +19,7 @@ class Piece(models.Model):
     author = models.CharField(max_length=200)
     year = models.IntegerField()
     piececover = models.CharField(max_length=1000)
-    # coll_buy = models.CharField(max_length=2000)
+    coll_buy = models.CharField(max_length=5000,  default='default value')
 
     def __str__(self):
         return self.title

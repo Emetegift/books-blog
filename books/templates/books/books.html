@@ -4,15 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Books blog</title>
+    <style>
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Adjust the number of columns as needed */
+            gap: 10px; /* Adjust the gap between books as needed */
+        }
+        .book-item {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    {% for booksobj in object_list %}
-        <div align="center">
-            <img src="{{booksobj.coll_cover}}", height="200px" width="200px">
-            <h2><a href="/books/{{booksobj.id}}/">{{booksobj.collection_name}}</a></h2>
-            <h3>{{booksobj.description}}</h3>
-            <br />
-        </div>
-    {% endfor %}
+    <div class="book-grid">
+        {% for booksobj in object_list %}
+            <div class="book-item">
+                <img src="{{booksobj.coll_cover}}" height="200px" width="200px">
+                <h2><a href="/books/{{booksobj.id}}/">{{booksobj.collection_name}}</a></h2>
+                <h3>{{booksobj.description}}</h3>
+            </div>
+        {% endfor %}
+    </div>
 </body>
 </html>
