@@ -10,3 +10,8 @@ class UserForm(forms.ModelForm): #This is the form class
         model = User
         fields = ['username', 'email', 'password'] #These are the fiels that are required of a user
         
+class LoginUserForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ['username', 'password']
