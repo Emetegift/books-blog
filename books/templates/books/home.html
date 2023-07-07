@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% extends 'books/base.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .homeobj-item {
+            text-align: center;
+        }
+        
+        .homeobj-item img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            {% for homeobj in object_list %}
+            <div class="col-md-3 mb-4">
+                <div class="homeobj-item">
+                    <img src="{{homeobj.home_cover}}" class="img-fluid" alt=" Home">
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+</body>
+</html>
+
+</html>
